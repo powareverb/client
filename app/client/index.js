@@ -251,10 +251,10 @@ client.prototype.reconnect = function reconnect() {
 client.prototype.createMQTTClient = function createMQTTClient() {
   var client = mqtt.createClient(1883, this.opts.cloudHost, {username: this.serial, password: this.token});
 
-  client.on('reconnect', this.client.reconnect.bind(client)); //TODO test this new event
+  client.on('reconnect', client.reconnect.bind(client)); //TODO test this new event
 
-  client.on('disconnect', this.client.down.bind(client));
-  client.on('connect', this.client.up.bind(client));
+  client.on('disconnect', client.down.bind(client));
+  client.on('connect', client.up.bind(client));
 
   return client;
 };
