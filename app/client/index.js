@@ -249,12 +249,12 @@ client.prototype.reconnect = function reconnect() {
  * Build an MQTT client
  */
 client.prototype.createMQTTClient = function createMQTTClient() {
-  var mqclient = mqtt.createClient(1883, this.opts.cloudHost, {username: this.serial, password: this.token});
+  var client = mqtt.createClient(1883, this.opts.cloudHost, {username: this.serial, password: this.token});
 
-  mqclient.on('reconnect', client.reconnect.bind(mqclient)); //TODO test this new event
+  client.on('reconnect', this.client.reconnect.bind(client)); //TODO test this new event
 
-  mqclient.on('disconnect', client.down.bind(mqclient));
-  mqclient.on('connect', client.up.bind(mqclient));
+  client.on('disconnect', this.client.down.bind(client));
+  client.on('connect', this.client.up.bind(client));
 
   return client;
 };
